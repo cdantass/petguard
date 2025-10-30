@@ -1,0 +1,127 @@
+:root {
+    --primary-color: #1b8a5a;
+    --primary-dark: #136b46;
+    --primary-light: #20a464;
+    --sidebar-bg: #ffffff;
+    --text-light: #f5f5f5;
+    --hover-bg: #eaf8f0;
+}
+
+body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+.navbar.navbar-dark {
+    background-color: var(--primary-color) !important;
+    border-bottom: 2px solid var(--primary-dark);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: var(--text-light) !important;
+}
+
+.navbar-brand:hover,
+.navbar-nav .nav-link:hover {
+    color: #ffffff !important;
+}
+
+/* ===== Sidebar ===== */
+.main-sidebar {
+    background-color: #ffffff !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    border-right: 1px solid #e6e6e6;
+}
+
+.brand-link {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e6e6e6 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 0 !important;
+}
+
+.brand-link img {
+    height: 200px !important; /* antes 100px */
+    width: auto !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    object-fit: contain;
+}
+
+
+.sidebar .user-panel {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.sidebar .nav-sidebar > .nav-item > .nav-link {
+    color: #333 !important;
+    font-weight: 500;
+    border-radius: 8px;
+    margin: 4px 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+}
+
+.sidebar .nav-sidebar > .nav-item > .nav-link:hover {
+    background-color: var(--hover-bg) !important;
+    color: var(--primary-dark) !important;
+    transform: translateX(4px);
+}
+
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-dark) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light) !important;
+    border-color: var(--primary-dark) !important;
+}
+
+.content-header h1, 
+.card-title {
+    color: var(--primary-dark) !important;
+    font-weight: 600;
+}
+
+.login-page, 
+.login-box {
+    background: #ffffff !important;
+}
+
+.login-card-body {
+    border-top: 4px solid var(--primary-color);
+    background: #ffffff !important;
+}
+
+.btn-primary.btn-block {
+    background-color: var(--primary-color) !important;
+    border: none !important;
+}
+
+.btn-primary.btn-block:hover {
+    background-color: var(--primary-light) !important;
+}
+
+.login-logo img {
+    height: 250px !important;
+    width: auto !important;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+a {
+    color: var(--primary-color);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}

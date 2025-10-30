@@ -4,28 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Abrigo de Animais</title>
+    <title>PetGuard</title>
     <link rel="stylesheet" href="{% static 'petguard/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'petguard/index.css' %}">
 </head>
 <body>
     <header>
         <div class="header-content">
-            <h1>PetGuard</h1>
-            <button onclick="logout()">Sair</button>
+            <div class="logo-nome">
+                <img src="{% static 'petguard/petlogobranco.png' %}" class="logo" id="logo">
+            </div>
+            <div class="profile-container">
+                <img src="{% static 'petguard/iconepng.png' %}" alt="Perfil" class="profile-icon" id="profileIcon">
+                <div class="profile-menu" id="profileMenu">
+                    <p class="profile-name">Olá, {{ user }}!</p>
+                    <a href="#">Meu Perfil</a>
+                    <a href="http://127.0.0.1:8000/admin">Cadastrar Usuário</a>
+                    <a href="{% url 'logout' %}">Sair</a>
+                </div>
+            </div>
         </div>
     </header>
 
     <section>
         <form id="animalForm">
-            <input type="text" class="especie" name="especie" placeholder="Espécie" required>
-            <input type="text" class="raca" name="raca" placeholder="Raça" required>
-            <input type="number" class="idade" name="idade" placeholder="Idade" required>
-            <select class="status" name="status" required>
-                <option value="Disponível">Disponível</option>
-                <option value="Em tratamento">Em tratamento</option>
-                <option value="Adotado">Adotado</option>
-            </select>
-            <button type="submit">Adicionar Animal</button>
+            <div class="barra-pesquisa">
+                <input type="text" placeholder="Pesquisar..." name="q" class="campo-pesquisa">
+                <button type="submit" class="botao-pesquisa">Buscar</button>
+                <a href="{% static 'petguard/addAnimal.html' %}" class="addBtn">Adicionar Animal</a>
+            </form>
         </form>
     </section>
 
@@ -45,6 +52,23 @@
 
     <button id="doacoesBtn" onclick="openDoacoesPage()">Doações</button>
 
-    <script src="{% static 'petguard/scripts.js' %}"></script>
+    <script>
+        const profileIcon = document.getElementById('profileIcon');
+        const profileMenu = document.getElementById('profileMenu');
+
+        profileIcon.addEventListener('click', () => {
+            profileMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (event) => {
+            if (!profileIcon.contains(event.target) && !profileMenu.contains(event.target)) {
+                profileMenu.classList.remove('show');
+            }
+        });
+
+        document.getElementById('logoutButton').addEventListener('click', () => {
+            alert("Você saiu da conta!");
+        });
+    </script>
 </body>
 </html>

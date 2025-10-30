@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,3 +127,55 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Admin PETGUARD",
+    "site_header": "PETGUARD",
+    "site_brand": "​",
+    "welcome_sign": "Administração do Sistema de Animais",
+    "copyright": "PETGUARD SERGIPE",
+
+    "site_logo": "petguard/petlogopng.png",
+    "login_logo": "petguard/petlogopng.png",
+    
+    "custom_css": "petguard/admin_custom.css",
+
+    "custom_links": {
+        "auth": [{
+            "name": "Autenticação e Autorização",
+            "models": (
+                "auth.group",
+                "auth.user",
+            )
+        }],
+        "unit": [{
+            "name": "Gerenciamento de Animais",
+            "models": (
+                "unit.Animais",
+                
+            )
+        }]
+    },
+
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.Group": "fas fa-users",
+        "auth.User": "fas fa-user-tie",
+        "unit.Animais": "fas fa-file-alt",
+    },
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "litera",
+    "navbar": "navbar-dark",
+    "sidebar": "sidebar-dark-primary",
+    "accent": "accent-dark",
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-outline-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-outline-success"
+    },
+}

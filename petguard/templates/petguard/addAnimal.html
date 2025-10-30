@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetGuard - Cadastro de Animal</title>
+  <link rel="stylesheet" href="static/petguard/styles.css">
+  <link rel="stylesheet" href="static/perguard/addAnimal.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo-nome">
+                <img src="static/petguard/petlogopng.png" class="logo" id="logo">
+                <h1>PetGuard</h1>
+            </div>
+            <div class="profile-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Perfil" class="profile-icon" id="profileIcon">
+
+            <div class="profile-menu" id="profileMenu">
+                <p class="profile-name">Olá, Pedro!</p>
+                <a href="#">Meu Perfil</a>
+                <a href="#">Cadastrar Usuário</a>
+                <a href="#" id="logoutButton">Sair</a>
+            </div>
+        </div>
+        </div>
+    </header>
+
+  <div class="container">
+    <div class="card">
+      <div class="animal-info">
+        <div class="animal-foto">
+          <img src="static/petguard/icone-gato.png" alt="Foto do animal">
+        </div>
+
+        <div class="dados">
+          <p><strong>ID:</strong> animal_123456</p>
+
+          <div class="idade">
+            <select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </select>
+            <span>ano(s)</span>
+            <select>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+            </select>
+            <span>mês(es)</span>
+          </div>
+
+          <label>Apelido:</label>
+          <input type="text" placeholder="Apelido">
+
+          <label>Espécie:</label>
+          <input type="text" placeholder="Espécie">
+
+          <label>Raça:</label>
+          <input type="text" placeholder="Raça">
+        </div>
+      </div>
+
+      <label style="margin-top: 20px;">Observações:</label>
+      <textarea placeholder="Digite as observações..."></textarea>
+
+      <div class="botoes">
+        <a href="templates/petguard/index.html">
+          <button class="btn-salvar">Salvar</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

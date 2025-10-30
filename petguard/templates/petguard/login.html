@@ -5,29 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login PetGuard</title>
-    <link rel="stylesheet" href="{% static 'petguard/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'petguard/login.css' %}">
 </head>
 <body>
-    <div class="page">
-        <div class="formLogin">
-            <h1>PetGuard</h1>
-            <form method="POST" action="">
-                {% csrf_token %}
-                <label for="username">Usuário:</label>
-                <input type="text" id="username" name="username" required>
-
-                <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
-
-                <button type="submit" class="btn">Entrar</button>
-            </form>
-
-            {% if messages %}
-                {% for message in messages %}
-                    <p style="color:red">{{ message }}</p>
-                {% endfor %}
-            {% endif %}
+    <div class="login-card">
+        <div class="logo-container">
+            <img src="{% static 'petguard/petlogo.png' %}" alt="Logo PetGuard">
         </div>
+        <p>Entre na sua conta</p>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <label for="usuario">Usuário:</label>
+            <input type="text" id="usuario" name="username" placeholder="Digite seu usuário" required>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="password" placeholder="Digite sua senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <div class="footer">
+            <p>Esqueceu sua senha? <a href="#">Recuperar</a></p>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color:red">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
     </div>
 </body>
 </html>
