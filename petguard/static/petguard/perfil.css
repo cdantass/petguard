@@ -1,0 +1,135 @@
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, sans-serif;
+      background-color: #0b572d; /* verde escuro padrão */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .profile-card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 40px 50px;
+      width: 400px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .profile-header .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #0b8a35;
+      color: white;
+      font-weight: bold;
+      font-size: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .profile-header h2 {
+      color: #003366;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .profile-header .profile-type {
+      background-color: #e7f5ec;
+      color: #0b572d;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+      font-size: 14px;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #0b572d;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    input[readonly],
+    select[disabled] {
+      background-color: #f3f3f3;
+      color: #444;
+      cursor: not-allowed;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0b8a35;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 15px;
+    }
+
+    button:hover {
+      background-color: #09772c;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .footer a {
+      color: #0b572d;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
