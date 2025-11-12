@@ -49,6 +49,8 @@ Admin: django-jazzmin
 
 <img width="250" height="250" alt="1710173183065" src="https://github.com/user-attachments/assets/884e24b8-9ee2-4e02-b860-5efcc8a04703" />
 
+<img width="860" height="351" alt="image" src="https://github.com/user-attachments/assets/e9dd4999-d833-4a51-bd32-0015357255c6" />
+
 --------------------------------------------------
 Pré-requisitos:
 Python
