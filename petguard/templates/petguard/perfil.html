@@ -1,30 +1,42 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meu Perfil</title>
-  <link rel="stylesheet" href="perfil.css">
+  <link rel="stylesheet" href="{% static 'petguard/perfil.css' %}">
 </head>
 <body>
 
   <div class="profile-card">
     <div class="profile-header">
-      <h2 id="user-name-display">Perfil de Usuário</h2>
-      <div class="profile-type" id="profile-type-display">Tipo: Membro</div>
+      <h2 id="user-name-display">
+        Perfil de {{ user.first_name|default:user.username }}
+      </h2>
+      <div class="profile-type">
+        Tipo: {% if user.is_superuser %}Administrador{% else %}Membro{% endif %}
+      </div>
     </div>
 
-    <form id="profile-form">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
       <label for="name">Nome</label>
-      <input type="text" id="name" placeholder="Seu nome completo" required>
+      <input type="text" id="name" name="name"
+             value="{{ user.first_name }}" placeholder="Seu nome completo" required>
 
       <label for="phone">Número (telefone)</label>
-      <input type="tel" id="phone" placeholder="(99) 99999-9999">
+      <input type="tel" id="phone" name="phone"
+             value="{{ user.profile.telefone|default:'' }}" placeholder="(99) 99999-9999">
 
       <label for="email">E-mail</label>
-      <input type="email" id="email" placeholder="seu@exemplo.com" required>
+      <input type="email" id="email" name="email"
+             value="{{ user.email }}" placeholder="seu@exemplo.com" required>
 
       <button type="submit">Salvar</button>
     </form>
+  </div>
+
 </body>
 </html>

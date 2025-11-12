@@ -34,20 +34,17 @@ def index(request):
 
     animais = Animal.objects.all()
 
-    # Filtro por apelido
     if query:
         animais = animais.filter(apelido__icontains=query)
 
-    # Filtro por espécie
     if especie_id and especie_id.lower() != 'todas as espécies':
         animais = animais.filter(especie_id=especie_id)
 
-    # Filtro por raça (corrigido)
     if raca_id and raca_id.lower() != 'todas as raças':
         try:
             animais = animais.filter(raca_id=int(raca_id))
         except ValueError:
-            pass  # caso venha algo inválido
+            pass
 
     # Filtro por status
     if status and status.lower() != 'todos':
@@ -151,3 +148,25 @@ def excluir_animal(request, animal_id):
         return JsonResponse({"success": False, "error": "Animal não encontrado"})
     except Exception as e:
         return JsonResponse({"success": False, "error": str(e)})
+
+@login_required
+def perfil(request):
+    user = request.user
+
+    if request.method == "POST":
+        nome = request.POST.get("name")
+        telefone = request.POST.get("phone")
+        email = request.POST.get("email")
+
+        user.first_name = nome
+        user.email = email
+        user.save()
+
+        if hasattr(user, "profile"):
+            user.profile.telefone = telefone
+            user.profile.save()
+
+        messages.success(request, "Perfil atualizado com sucesso!")
+        return redirect("index")
+
+    return render(request, "petguard/perfil.html", {"user": user})

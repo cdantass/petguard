@@ -18,7 +18,7 @@
       <img src="{% static 'petguard/iconepng.png' %}" alt="Perfil" class="profile-icon" id="profileIcon">
       <div class="profile-menu" id="profileMenu">
         <p class="profile-name">Olá, {{ user }}!</p>
-        <a href="#">Meu Perfil</a>
+        <a href="{% url 'perfil' %}">Meu Perfil</a>
         {% if is_admin %}
           <a href="http://127.0.0.1:8000/admin/">Cadastrar Usuário</a>
         {% endif %}
