@@ -62,6 +62,7 @@ IDE
 Git
 
 --------------------------------------------------
+(BRANCH MAIN!)
 
 (TUDO A BAIXO PRECISA SER DIGITADO NO TERMINAL)
 
