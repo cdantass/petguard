@@ -49,7 +49,7 @@ Admin: django-jazzmin
 
 <img width="250" height="250" alt="1710173183065" src="https://github.com/user-attachments/assets/884e24b8-9ee2-4e02-b860-5efcc8a04703" />
 
-<img width="300" height="168" alt="image" src="https://github.com/user-attachments/assets/9059ee60-7d9b-4660-8a73-514b659b4f48" />
+<img width="250" height="250" alt="image" src="https://github.com/user-attachments/assets/9059ee60-7d9b-4660-8a73-514b659b4f48" />
 
 --------------------------------------------------
 Pré-requisitos:
