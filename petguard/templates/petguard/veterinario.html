@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ficha Veterinária - {{ animal.apelido }}</title>
+  <link rel="stylesheet" href="{% static 'petguard/veterinario.css' %}">
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <img src="{% static 'petguard/petlogobranco.png' %}" alt="Logo PETGUARD">
+    </div>
+    <div class="header-right">
+      <img src="{% static 'petguard/iconepng.png' %}" alt="Usuário">
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="animal-header">
+      {% if animal.foto %}
+        <img src="{{ animal.foto.url }}" alt="Foto de {{ animal.apelido }}">
+      {% else %}
+        <img src="{% static 'petguard/icone-gato.png' %}" alt="Foto do animal">
+      {% endif %}
+
+      <div class="animal-info">
+        <h2>{{ animal.apelido }}</h2>
+        <p><strong>Idade:</strong> {{ animal.anos }} ano(s) e {{ animal.meses }} mês(es)</p>
+        <p><strong>Espécie:</strong> {{ animal.especie.nome }}</p>
+        <p><strong>Raça:</strong> {{ animal.raca.nome }}</p>
+        <p><strong>Status:</strong> {{ animal.get_status_display }}</p>
+        <p><strong>Cadastrado em:</strong> {{ animal.created_at|date:"d/m/Y H:i" }}</p>
+      </div>
+    </div>
+
+    <div class="medicacoes">
+      <h3>💊 Medicações Registradas</h3>
+      {% if medicacoes %}
+        <ul>
+          {% for m in medicacoes %}
+            <li>
+              <strong>{{ m.nome }}</strong> — {{ m.data_aplicacao|date:"d/m/Y" }}
+              {% if m.observacoes %}
+                <br><small><em>{{ m.observacoes }}</em></small>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>Nenhuma medicação registrada.</p>
+      {% endif %}
+    </div>
+
+    <div class="add-medicacao">
+      <h3>➕ Adicionar Nova Medicação</h3>
+      <form method="POST">
+        {% csrf_token %}
+        <label for="nome">Nome da medicação:</label>
+        <input type="text" id="nome" name="nome" placeholder="Ex: Antibiótico XYZ" required>
+
+        <label for="observacoes">Observações:</label>
+        <textarea id="observacoes" name="observacoes" rows="3" placeholder="Ex: Administrar 2x ao dia..."></textarea>
+
+        <button type="submit">Salvar Medicação</button>
+      </form>
+    </div>
+
+    <a href="{% url 'index' %}" class="back-btn">⬅️ Voltar</a>
+  </div>
+</body>
+</html>

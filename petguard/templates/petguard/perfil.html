@@ -2,41 +2,47 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
   <title>Meu Perfil</title>
   <link rel="stylesheet" href="{% static 'petguard/perfil.css' %}">
 </head>
 <body>
-
   <div class="profile-card">
     <div class="profile-header">
-      <h2 id="user-name-display">
-        Perfil de {{ user.first_name|default:user.username }}
-      </h2>
+      <div class="avatar">
+        {{ user.first_name|default:user.username|slice:":1" | upper }}
+      </div>
+      <h2>{{ user.first_name|default:user.username }}</h2>
       <div class="profile-type">
-        Tipo: {% if user.is_superuser %}Administrador{% else %}Membro{% endif %}
+        {% if user.is_superuser %}
+          Administrador
+        {% elif user.groups.all.0.name == 'Operadores' %}
+          Operador
+        {% elif user.groups.all.0.name == 'Veterinarios' %}
+          Veterinário
+        {% else %}
+          Membro
+        {% endif %}
       </div>
     </div>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST">
       {% csrf_token %}
-
-      <label for="name">Nome</label>
-      <input type="text" id="name" name="name"
-             value="{{ user.first_name }}" placeholder="Seu nome completo" required>
-
-      <label for="phone">Número (telefone)</label>
-      <input type="tel" id="phone" name="phone"
-             value="{{ user.profile.telefone|default:'' }}" placeholder="(99) 99999-9999">
+      <label for="first_name">Nome</label>
+      <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}">
 
       <label for="email">E-mail</label>
-      <input type="email" id="email" name="email"
-             value="{{ user.email }}" placeholder="seu@exemplo.com" required>
+      <input type="email" id="email" name="email" value="{{ user.email }}">
 
-      <button type="submit">Salvar</button>
+      <label for="password">Nova Senha</label>
+      <input type="password" id="password" name="password" placeholder="Digite uma nova senha (opcional)">
+
+      <button type="submit">Salvar Alterações</button>
     </form>
-  </div>
 
+    <div class="footer">
+      <a href="{% url 'index' %}">⬅️ Voltar ao início</a>
+    </div>
+  </div>
 </body>
 </html>

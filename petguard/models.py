@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 
 class Especie(models.Model):
     nome = models.CharField(max_length=100, unique=True)
@@ -32,3 +34,12 @@ class Animal(models.Model):
 
     def __str__(self):
         return f"{self.apelido} ({self.especie})"
+
+class Medicacao(models.Model):
+    animal = models.ForeignKey('Animal', on_delete=models.CASCADE, related_name='medicacoes')
+    nome = models.CharField(max_length=100)
+    data_aplicacao = models.DateField(default=timezone.now)
+    observacoes = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.nome} - {self.animal.apelido}"

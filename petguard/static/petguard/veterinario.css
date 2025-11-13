@@ -1,0 +1,161 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f3f5f3;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  background-color: #016126;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-left img {
+  height: 80px;
+}
+
+.header-left span {
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 0.5px;
+}
+
+.header-right img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e8eee8;
+}
+
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.animal-header {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.animal-header img {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 3px solid #e0e8e0;
+}
+
+.animal-info h2 {
+  color: #015d2e;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.animal-info p {
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+.medicacoes {
+  margin-top: 35px;
+}
+
+.medicacoes h3 {
+  color: #015d2e;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.medicacoes ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.medicacoes li {
+  background: #f3fbf3;
+  border-left: 5px solid #015d2e;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+}
+
+.medicacoes li strong {
+  color: #01471f;
+}
+
+.medicacoes small {
+  color: #444;
+  font-style: italic;
+}
+
+.add-medicacao {
+  background-color: #f5fff7;
+  border: 1px solid #b8e0c0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+.add-medicacao h3 {
+  color: #0a4f25;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #c8d9c8;
+  font-family: "Poppins", sans-serif;
+}
+
+button {
+  background: #015d2e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+button:hover {
+  background: #01471f;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 20px;
+  color: #015d2e;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}

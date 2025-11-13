@@ -53,7 +53,9 @@
       <input type="hidden" id="statusFiltro" name="status" value="">
     </div>
 
-    <button type="button" id="addAnimalbtn" class="addBtn">Adicionar</button>
+    {% if is_admin or is_operador %}
+      <button type="button" id="addAnimalbtn" class="addBtn">Adicionar</button>
+    {% endif %}
   </div>
 </section>
 
@@ -84,11 +86,15 @@
       </td>
       <td>{{ animal.get_status_display }}</td>
       <td>
-        <a href="{% url 'editar_animal' animal.id %}" class="btn btn-success">Editar</a>
-        <form action="{% url 'excluir_animal' animal.id %}" method="post" class="delete-form" style="display:inline;">
-          {% csrf_token %}
-          <button type="button" class="btn btn-danger delete-btn">Excluir</button>
-        </form>
+        {% if is_admin or is_operador %}
+          <a href="{% url 'editar_animal' animal.id %}" class="btn btn-success">Editar</a>
+          <form action="{% url 'excluir_animal' animal.id %}" method="post" class="delete-form" style="display:inline;">
+            {% csrf_token %}
+            <button type="button" class="btn btn-danger delete-btn">Excluir</button>
+          </form>
+        {% elif is_veterinario %}
+          <a href="{% url 'veterinario' animal.id %}" class="btn btn-info">Ver Medicações</a>
+        {% endif %}
       </td>
     </tr>
     {% empty %}
@@ -118,8 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const linhas = document.querySelectorAll("#tabelaAnimais tbody tr");
 
   function normalizarTexto(valor) {
-    return valor
-      .toLowerCase()
+    return valor.toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/\s+/g, " ")
@@ -137,20 +142,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const status = normalizarStatus(statusInput.value);
 
     linhas.forEach(linha => {
-        const apelido = normalizarTexto(linha.cells[0].textContent);
-        const linhaEspecie = linha.dataset.especie;
-        const linhaRaca = linha.dataset.raca;
-        const linhaStatus = normalizarStatus(linha.dataset.status || "");
+      const apelido = normalizarTexto(linha.cells[0].textContent);
+      const linhaEspecie = linha.dataset.especie;
+      const linhaRaca = linha.dataset.raca;
+      const linhaStatus = normalizarStatus(linha.dataset.status || "");
 
-        const matchApelido = !termo || apelido.includes(termo);
-        const matchEspecie = !especie || linhaEspecie === especie;
-        const matchRaca = !raca || linhaRaca === raca;
-        const matchStatus = !status || linhaStatus === status;
+      const matchApelido = !termo || apelido.includes(termo);
+      const matchEspecie = !especie || linhaEspecie === especie;
+      const matchRaca = !raca || linhaRaca === raca;
+      const matchStatus = !status || linhaStatus === status;
 
-        linha.style.display = (matchApelido && matchEspecie && matchRaca && matchStatus) ? "" : "none";
+      linha.style.display = (matchApelido && matchEspecie && matchRaca && matchStatus) ? "" : "none";
     });
-    }
-
+  }
 
   [buscaInput, filtroEspecie, filtroRaca].forEach(el => {
     el.addEventListener("input", aplicarFiltros);

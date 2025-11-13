@@ -2,10 +2,10 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
+from django.utils import timezone
 from django.views.decorators.http import require_POST
-from .models import Animal, Especie, Raca
-
+from .models import Animal, Especie, Raca, Medicacao
 
 def login_view(request):
     if request.method == "POST":
@@ -24,7 +24,6 @@ def logout_view(request):
     logout(request)
     return redirect("login")
 
-
 @login_required(login_url="login")
 def index(request):
     query = request.GET.get('q', '')
@@ -36,32 +35,38 @@ def index(request):
 
     if query:
         animais = animais.filter(apelido__icontains=query)
-
     if especie_id and especie_id.lower() != 'todas as espécies':
         animais = animais.filter(especie_id=especie_id)
-
     if raca_id and raca_id.lower() != 'todas as raças':
         try:
             animais = animais.filter(raca_id=int(raca_id))
         except ValueError:
             pass
-
-    # Filtro por status
     if status and status.lower() != 'todos':
         animais = animais.filter(status=status)
+
+    user = request.user
+    grupos = [g.name for g in user.groups.all()]
 
     context = {
         'animais': animais,
         'especies': Especie.objects.all(),
         'racas': Raca.objects.all(),
-        'is_admin': request.user.is_superuser,
+        'is_admin': user.is_superuser,
+        'is_operador': 'Operador' in grupos,
+        'is_veterinario': 'Veterinario' in grupos,
     }
 
     return render(request, 'petguard/index.html', context)
 
-
 @login_required(login_url="login")
 def add_animal(request, id=None):
+    user = request.user
+    grupos = [g.name for g in user.groups.all()]
+
+    if 'Veterinario' in grupos and not user.is_superuser:
+        return HttpResponseForbidden("Você não tem permissão para acessar esta página.")
+
     animal = None
     if id:
         animal = get_object_or_404(Animal, id=id)
@@ -125,21 +130,15 @@ def add_animal(request, id=None):
         'racas': racas,
     })
 
-
-def racas_por_especie(request, especie_id):
-    racas = Raca.objects.filter(especie_id=especie_id).values('id', 'nome')
-    return JsonResponse(list(racas), safe=False)
-
-
-@login_required(login_url="login")
-def detalhes(request, id):
-    animal = get_object_or_404(Animal, id=id)
-    return render(request, "petguard/detalhes.html", {"animal": animal})
-
-
 @require_POST
 @login_required(login_url="login")
 def excluir_animal(request, animal_id):
+    user = request.user
+    grupos = [g.name for g in user.groups.all()]
+
+    if 'Veterinario' in grupos and not user.is_superuser:
+        return JsonResponse({"success": False, "error": "Sem permissão para excluir."})
+
     try:
         animal = Animal.objects.get(id=animal_id)
         animal.delete()
@@ -170,3 +169,36 @@ def perfil(request):
         return redirect("index")
 
     return render(request, "petguard/perfil.html", {"user": user})
+
+@login_required(login_url="login")
+def detalhes(request, id):
+    animal = get_object_or_404(Animal, id=id)
+    return render(request, "petguard/detalhes.html", {"animal": animal})
+
+def racas_por_especie(request, especie_id):
+    racas = Raca.objects.filter(especie_id=especie_id).values('id', 'nome')
+    return JsonResponse(list(racas), safe=False)
+
+
+@login_required(login_url="login")
+def veterinario_view(request, animal_id):
+    animal = get_object_or_404(Animal, id=animal_id)
+    medicacoes = animal.medicacoes.all().order_by('-data_aplicacao')
+
+    if request.method == "POST":
+        nome = request.POST.get('nome')
+        observacoes = request.POST.get('observacoes')
+
+        if nome:
+            Medicacao.objects.create(
+                animal=animal,
+                nome=nome,
+                observacoes=observacoes,
+                data_aplicacao=timezone.now()
+            )
+        return redirect('veterinario', animal_id=animal.id)
+
+    return render(request, 'petguard/veterinario.html', {
+        'animal': animal,
+        'medicacoes': medicacoes,
+    })
